@@ -1,9 +1,9 @@
 const VerifyToken = (req, res) => {
   console.log(req.query)
   try {
-      var accessToken = "RTQWWTVHBDEJHJKIKIKNDS9090DS";
-      var token = req.query["hub.verify_token"];
-      var challenge = req.query["hub.challenge"];
+    var accessToken = "RTQWWTVHBDEJHJKIKIKNDS9090DS";
+    var token = req.query["hub.verify_token"];
+    var challenge = req.query["hub.challenge"];
 
     if (challenge != null && token != null && token == accessToken) {
       res.send(challenge);
@@ -13,6 +13,31 @@ const VerifyToken = (req, res) => {
   } catch (error) {
     res.status(400).send()
   }
+}
+
+const GetTextUser = (messages) => {
+  var text = "";
+  var typeMessge = messages["type"];
+  if (typeMessge == "text") {
+    text = (messages["text"])["body"];
+  }
+  else if (typeMessge == "interactive") {
+
+    var interactiveObject = messages["interactive"];
+    var typeInteractive = interactiveObject["type"];
+
+    if (typeInteractive == "button_reply") {
+      text = (interactiveObject["button_reply"])["title"];
+    }
+    else if (typeInteractive == "list_reply") {
+      text = (interactiveObject["list_reply"])["title"];
+    } else {
+      myConsole.log("sin mensaje");
+    }
+  } else {
+    myConsole.log("sin mensaje");
+  }
+  return text;
 }
 
 const ReceivedMessage = (req, res) => {
