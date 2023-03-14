@@ -1,7 +1,7 @@
 const VerifyToken = (req, res) => {
   console.log(req.query)
   try {
-    var accessToken = "RTQWWTVHBDEJHJKIKIKNDS9090DS";
+      var accessToken = "RTQWWTVHBDEJHJKIKIKNDS9090DS";
       var token = req.query["hub.verify_token"];
       var challenge = req.query["hub.challenge"];
 
